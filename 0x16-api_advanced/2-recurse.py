@@ -2,7 +2,7 @@
 """Function to query a list of all hot posts on a given Reddit subreddit."""
 import requests
 
-def recurse(subreddit, hot_list=[], after=".", count=0):
+def recurse(subreddit, hot_list=[], after="", count=0):
     """returns a list of titles"""
     url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
     headers = {
@@ -13,8 +13,8 @@ def recurse(subreddit, hot_list=[], after=".", count=0):
             "count": count,
             "limit": 100
         }
-    response = request.get(url, headers=headers, params=params, allow_redirects=False)
-    if response.status_coe == 404:
+    response = requests.get(url, headers=headers, params=params, allow_redirects=False)
+    if response.status_code == 404:
         return None
 
     results = response.json().get("data")
